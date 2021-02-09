@@ -29,7 +29,7 @@ const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, curren
     setMessage("");
   };
   const getUser = async () => {
-    const user = await getFunction("profile/stefanio" + currentReciver);
+    const user = await getFunction("profile/" + currentReciver);
     console.log(user);
     if (user) setRecivingUser(user);
   };
