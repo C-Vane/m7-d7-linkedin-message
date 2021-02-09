@@ -15,6 +15,7 @@ const MessagesBlock = (props) => {
   const [currentReciver, setCurrentReciver] = useState("");
   const [onlineUsers, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [messageNotification, setMessageNotification] = useState([]);
   const unique = (value, index, self) => {
     return self.indexOf(value) === index;
   };
@@ -25,7 +26,10 @@ const MessagesBlock = (props) => {
       username: userName,
     });
     socket.on("list", (list) => setUsers(list.filter(unique)));
-    socket.on("chatmessage", (msg) => setMessages((messages) => messages.concat(msg)));
+    socket.on("chatmessage", (msg) => {
+      setMessages((messages) => messages.concat(msg).filter(unique));
+      setMessageNotification((messageNotification) => messageNotification.concat(msg.from));
+    });
     onlineUsers.length > 0 && setCurrentReciver(onlineUsers.find((user) => user !== userName));
   }, []);
 
@@ -42,13 +46,20 @@ const MessagesBlock = (props) => {
       text: msg,
     });
     setMessages((messages) => messages.concat({ from: userName, to: currentReciver, text: msg, createdAt: new Date() }));
-    console.log(msg);
+    console.log(messages);
   };
   return (
     <div className='feed-right-container mb-3 p-0'>
       <Row>
         <Col sm={5} className='brdr-right py-3 pr-0'>
-          <UsersList {...props} currentReciver={currentReciver} onlineUsers={onlineUsers} setCurrentReciver={setCurrentReciver} />
+          <UsersList
+            {...props}
+            currentReciver={currentReciver}
+            onlineUsers={onlineUsers}
+            notifications={messageNotification}
+            setCurrentReciver={setCurrentReciver}
+            setNotifications={setMessageNotification}
+          />
         </Col>
         <Col sm={7} className='py-3 px-0 pr-3'>
           <Messages {...props} currentReciver={currentReciver} messages={messages} sendMessage={sendMessage} />

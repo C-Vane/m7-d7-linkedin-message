@@ -4,7 +4,7 @@ import CurrentUser from "../../components/CurrentUser";
 import OnlineUser from "../../components/OnlineUser";
 import OnlineUserHandler from "../../components/OnlineUsersHandler";
 
-const UsersList = ({ onlineUsers, currentReciver, userName, setCurrentReciver }) => {
+const UsersList = ({ onlineUsers, currentReciver, userName, setCurrentReciver, notifications, setNotifications }) => {
   const [recivingUser, setRecivingUser] = useState({});
   useEffect(() => {
     getUser();
@@ -16,10 +16,17 @@ const UsersList = ({ onlineUsers, currentReciver, userName, setCurrentReciver })
   };
   return (
     <div>
-      <div className='brdr-bottom m-0 pb-3 userList'>
+      <div className='brdr-bottom m-0 pb-3 '>
         <b className='px-3'>Messaging</b>
       </div>
-      <div>{onlineUsers.map((user) => user !== userName && <OnlineUserHandler currentReciver={currentReciver} setCurrentReciver={setCurrentReciver} user={user} />)}</div>
+      <div className='userList'>
+        {onlineUsers.map(
+          (user) =>
+            user !== userName && (
+              <OnlineUserHandler currentReciver={currentReciver} setCurrentReciver={setCurrentReciver} user={user} notifications={notifications} setNotifications={setNotifications} />
+            )
+        )}
+      </div>
     </div>
   );
 };

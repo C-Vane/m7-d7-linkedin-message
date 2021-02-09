@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Col, Dropdown, Form, Row } from "react-bootstrap";
 import Moment from "react-moment";
 import { getFunction } from "../../components/CRUDFunctions";
 import CurrentUser from "../../components/CurrentUser";
@@ -20,6 +20,7 @@ const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, curren
   useEffect(() => {
     setcurrentUser(currentReciver);
     setMessageList(messages);
+    getUser();
   }, [currentReciver, messages]);
 
   const sendMessageHandler = (e) => {
@@ -28,15 +29,45 @@ const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, curren
     setMessage("");
   };
   const getUser = async () => {
-    const user = await getFunction("profile/" + currentReciver);
+    const user = await getFunction("profile/stefanio" + currentReciver);
     console.log(user);
     if (user) setRecivingUser(user);
-    else console.log(user);
   };
   return (
-    <div>
-      <div className='brdr-bottom m-0 pb-3'>
-        <b className='p-3'>{currentUser}</b>
+    <div className='message-box'>
+      <div className='brdr-bottom m-0 d-flex pb-2 justify-content-between'>
+        <div>
+          <b>
+            {recivingUser._id ? (
+              <>
+                <p>{recivingUser.name + " " + recivingUser.surname}</p>
+                <small>Active Now</small>
+              </>
+            ) : (
+              <p>{currentUser}</p>
+            )}
+          </b>
+        </div>
+        <div>
+          <Dropdown>
+            <Dropdown.Toggle variant='light' className='rounded-pill' style={{ fontSize: "1.5rem", color: "rgba(0,0,0,0.5)" }}>
+              <i className='fas fa-ellipsis-h'></i>
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item className='p-2' href='#/action-1'>
+                Create group chat
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item className='p-2'>Archive</Dropdown.Item>
+              <Dropdown.Item className='p-2'>Delete</Dropdown.Item>
+              <Dropdown.Item className='p-2'>Mark as unread</Dropdown.Item>
+              <Dropdown.Item className='p-2'>Mute</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item className='p-2'>Report</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
       </div>
 
       <div className='brdr-bottom messages'>
@@ -49,7 +80,7 @@ const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, curren
                   {}
                   {message.from !== userName ? (
                     recivingUser._id ? (
-                      <CurrentUser jobTitle={recivingUser.title} name={recivingUser.name + " " + recivingUser.surname} userName={recivingUser.nameusername} profilePicture={recivingUser.image} />
+                      <CurrentUser jobTitle={recivingUser.title} name={recivingUser.name + " " + recivingUser.surname} userName={recivingUser.username} profilePicture={recivingUser.image} />
                     ) : (
                       <OnlineUser user={message.from} />
                     )
@@ -66,13 +97,53 @@ const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, curren
         )}
       </div>
       <div className='write-message'>
-        <Form onSubmit={sendMessageHandler}>
-          <Form.Group>
-            <Form.Control as='textarea' value={message} onChange={(e) => setMessage(e.target.value)} />
+        <Form>
+          <Form.Group className='brdr-bottom'>
+            <Form.Control as='textarea' value={message} onChange={(e) => setMessage(e.target.value)} placeholder='Write a message...' />
           </Form.Group>
-          <Button className='rounded-pill mr-0' type='submit' disabled={message.length < 1}>
-            Send
-          </Button>
+          <Row className='justify-content-between'>
+            <Col sm={6}>
+              <div className='d-flex icons p-0 m-0'>
+                <Button variant='link' className='d-flex align-items-center justify-content-center py-4 m-0'>
+                  <i className='fas fa-plus text-primary'></i>
+                </Button>
+                <Button variant='link' className='d-flex align-items-center justify-content-center py-4'>
+                  <i className='far fa-image'></i>
+                </Button>
+                <Button variant='link' className='d-flex align-items-center justify-content-center py-4'>
+                  <i className='fab fa-youtube'></i>
+                </Button>
+                <Button variant='link' className='d-flex align-items-center justify-content-center py-4'>
+                  <i className='fas fa-sticky-note'></i>
+                </Button>
+              </div>
+            </Col>
+            <Col sm='6'>
+              <div className='d-flex float-right mt-2'>
+                <Button className='rounded-pill px-4 py-0 m-0' onClick={sendMessageHandler} disabled={message.length < 1}>
+                  Send
+                </Button>
+                <Dropdown>
+                  <Dropdown.Toggle variant='light' className='rounded-pill' style={{ fontSize: "1.5rem", color: "rgba(0,0,0,0.5)" }}>
+                    <i className='fas fa-ellipsis-h'></i>
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item className='p-2' href='#/action-1'>
+                      Create group chat
+                    </Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item className='p-2'>Archive</Dropdown.Item>
+                    <Dropdown.Item className='p-2'>Delete</Dropdown.Item>
+                    <Dropdown.Item className='p-2'>Mark as unread</Dropdown.Item>
+                    <Dropdown.Item className='p-2'>Mute</Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item className='p-2'>Report</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+            </Col>
+          </Row>
         </Form>
       </div>
     </div>

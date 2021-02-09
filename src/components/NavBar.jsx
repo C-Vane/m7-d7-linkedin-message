@@ -68,7 +68,7 @@ class NavBar extends React.Component {
   render() {
     const { pathname } = this.props.location;
     return (
-      <div id='navbar'>
+      <div id='navbar' onPointerLeave={() => this.setState({ searchInput: "", showSearchResults: false, searchUsers: [], searchPosts: [] })}>
         <Navbar collapseOnSelect expand='md' bg='light' variant='light'>
           <Container>
             <Link to='/feed'>
