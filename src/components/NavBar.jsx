@@ -125,8 +125,8 @@ class NavBar extends React.Component {
                     <small>Jobs</small>
                   </div>
                 </Link>
-                <Link to='/messeging'>
-                  <div className={pathname === "/messeging" ? "nav-link active" : "nav-link"}>
+                <Link to='/messaging'>
+                  <div className={pathname === "/messaging" ? "nav-link active" : "nav-link"}>
                     <FontAwesomeIcon icon={faCommentDots} size='lg' />
                     <small>Messaging</small>
                   </div>

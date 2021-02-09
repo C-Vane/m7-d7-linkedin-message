@@ -33,7 +33,7 @@ class Experience extends Component {
     }, 1000);
   };
   componentDidUpdate = (prevProps) => {
-    prevProps.userID !== this.props.userID && this.getExperience() && this.setState({ loaded: false });
+    prevProps.userName !== this.props.userName && this.getExperience() && this.setState({ loaded: false });
   };
 
   putData = async (data) => {

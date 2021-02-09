@@ -24,7 +24,7 @@ function MainProfileBlock(props) {
   const [deleteModal, setDeleteModal] = React.useState(false);
 
   const fetchUserDataHandler = async (userName) => {
-    const endp = userName === props.userName.split("#")[0] ? "profile/user/u" : "profile/" + userName;
+    const endp = userName === props.loggedInUser ? "profile/user/u" : "profile/" + userName;
     const user = await getFunction(endp);
 
     if (user._id) {

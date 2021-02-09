@@ -5,13 +5,13 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Jobs from "./pages/jobs/Jobs";
 import Learning from "./pages/learning/Learning";
-import MainContent from "./pages/Profile/MainContent";
+import Profile from "./pages/Profile/MainContent";
 import ContactInfoPopup from "./components/ContactInfoPopup";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import MainFeedContent from "./pages/Home/MainFeedContent";
 import Login from "./pages/logIn/Login";
 import Registration from "./pages/Registration/Registration";
-
+import Messaging from "./pages/Messaging/Main";
 import MyNetwork from "./pages/MyNetwork/MyNetwork";
 import FullPageLoader from "./components/loaders/FullPageLoader";
 import { getFunction } from "./components/CRUDFunctions";
@@ -55,10 +55,13 @@ function App() {
         <MainFeedContent jobTitle={currentJobTitle} name={currentName} userID={currentUserID} userName={currentUsername} profilePicture={currentProfilePicture} />
       </Route>
       <Route path='/profile/:userName' exact>
-        <MainContent contactInfoHandler={contactInfoHandler} loggedInUserID={currentUserID} userName={currentUsername} />
+        <Profile contactInfoHandler={contactInfoHandler} loggedInUserID={currentUserID} userName={currentUsername} />
       </Route>
       <Route path='/network' exact>
         <MyNetwork />
+      </Route>
+      <Route path='/messaging' exact>
+        <Messaging jobTitle={currentJobTitle} name={currentName} userID={currentUserID} userName={currentUsername} profilePicture={currentProfilePicture} />
       </Route>
       {isContactInfoOpen && <ContactInfoPopup contactInfoHandler={contactInfoHandler} />}
       <Route path='/signup' exact>
