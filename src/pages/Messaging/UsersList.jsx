@@ -2,7 +2,6 @@ import React from "react";
 import OnlineUserHandler from "../../components/OnlineUsersHandler";
 
 const UsersList = ({ onlineUsers, currentReciver, userName, setCurrentReciver, notifications, setNotifications, offlineUsers }) => {
-  //console.log(notifications);
   return (
     <div>
       <div className='brdr-bottom m-0 pb-3 '>

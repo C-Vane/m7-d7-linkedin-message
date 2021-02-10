@@ -69,7 +69,6 @@ class NavBar extends React.Component {
   render() {
     const { pathname } = this.props.location;
     const { messageNotification } = this.props;
-    console.log(messageNotification);
     return (
       <div
         id='navbar'

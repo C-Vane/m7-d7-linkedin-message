@@ -7,19 +7,20 @@ const OnlineUserHandler = ({ user, currentReciver, setCurrentReciver, notificati
   const [recivingUser, setRecivingUser] = useState({});
   const [notification, setNotification] = useState(0);
   useEffect(() => {
-    notifications.length > 0 && setNotification(notifications.filter((n) => n === user).length);
+    setNotification(notifications.filter((n) => n === user).length);
   }, [notifications]);
 
   useEffect(() => {
     getUser();
-    notifications.length > 0 && setNotification(notifications.filter((n) => n === user).length);
+    setNotification(notifications.filter((n) => n === user).length);
   }, []);
   const getUser = async () => {
     const data = await getFunction("profile/" + user);
     if (data) setRecivingUser(data);
   };
   const setCurrent = (user) => {
-    notifications && setNotifications([...notifications.filter((n) => n !== user)]);
+    const updatedNotification = notifications.filter((n) => n !== user);
+    notifications && setNotifications(updatedNotification);
     setCurrentReciver(user);
   };
   return (

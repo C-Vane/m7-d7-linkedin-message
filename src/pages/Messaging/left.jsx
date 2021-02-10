@@ -22,10 +22,8 @@ const MessagesBlock = (props) => {
   const [messageNotification, setMessageNot] = useState([]);
 
   const setMessageNotification = (value) => {
-    console.log(value);
     localStorage.setItem("message_notification", JSON.stringify([...value]));
-    setMessageNot((messageNotification) => messageNotification.concat(value));
-    console.log(localStorage.getItem("message_notification"), value);
+    setMessageNot(value);
   };
 
   useEffect(() => {
@@ -40,8 +38,9 @@ const MessagesBlock = (props) => {
     });
     socket.on("chatmessage", (msg) => {
       setMessages((messages) => messages.concat(msg));
-      //console.log([...messageNotification], "new");
+      console.log([...messageNotification], "new");
       setMessageNotification(messageNotification.concat(msg.from));
+      console.log(messageNotification);
     });
     getMessages();
   }, []);
@@ -95,7 +94,7 @@ const MessagesBlock = (props) => {
             />
           )}
         </Col>
-        <Col sm={7} className='py-3 px-0 pr-3'>
+        <Col sm={7} className='pt-2 pb-3 px-0 pr-3'>
           {loading ? (
             <PostLoader />
           ) : (
