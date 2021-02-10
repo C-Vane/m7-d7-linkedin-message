@@ -7,6 +7,10 @@ const OnlineUserHandler = ({ user, currentReciver, setCurrentReciver, notificati
   const [recivingUser, setRecivingUser] = useState({});
   const [notification, setNotification] = useState(0);
   useEffect(() => {
+    setNotification(notifications.filter((n) => n === user).length);
+  }, [notifications]);
+
+  useEffect(() => {
     getUser();
     setNotification(notifications.filter((n) => n === user).length);
   }, []);
@@ -16,7 +20,7 @@ const OnlineUserHandler = ({ user, currentReciver, setCurrentReciver, notificati
     else console.log(user);
   };
   const setCurrent = (user) => {
-    setNotifications(notifications.filter((n) => n !== user));
+    setNotifications([...notifications.filter((n) => n !== user)]);
     setCurrentReciver(user);
   };
   return (

@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Button, Spinner, Modal } from "react-bootstrap";
-import ProfilePicture from "../../assets/profilepicture.PNG";
 import Highlights from "../../components/Highlights";
 import LatestEducation from "./LatestEducation";
 import LatestExperience from "./LatestExperience";
@@ -99,7 +98,7 @@ function MainProfileBlock(props) {
     setCurrentUserName(props.userName);
     fetchUserDataHandler(props.userName);
   }, [props.userName]);
-  const { pathname } = props.location;
+
   return (
     <>
       <div

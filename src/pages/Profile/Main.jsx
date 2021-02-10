@@ -3,7 +3,6 @@ import Experience from "./Experience";
 import Education from "./Education";
 import Skills from "./Skills";
 import Interests from "./Interests";
-import { getFunction } from "../../components/CRUDFunctions";
 
 export default class Main extends Component {
   render() {

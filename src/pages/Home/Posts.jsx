@@ -3,7 +3,7 @@ import Moment from "react-moment";
 import { Card, Image, Row, Col, Button, Dropdown, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCommentDots, faGlobeAmericas, faGrinWink, faHandHoldingHeart, faHeart, faLightbulb, faPaperPlane, faShare, faSignLanguage, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faGlobeAmericas, faGrinWink, faHandHoldingHeart, faHeart, faLightbulb, faSignLanguage, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import Comments from "../../components/PostComments";
 import { getFunction, postFunction } from "../../components/CRUDFunctions";
 import SearchItem from "../../components/SearchItem";

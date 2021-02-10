@@ -1,6 +1,5 @@
 import React from "react";
-import moment from "moment";
-import { Button, Col, Form, Modal, ModalFooter, Row } from "react-bootstrap";
+import { Button, Col, Form, Modal } from "react-bootstrap";
 
 class EditProfile extends React.Component {
   state = {

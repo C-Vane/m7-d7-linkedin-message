@@ -1,6 +1,6 @@
 import React from "react";
 import "./Registration.css";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { postFunction } from "../../components/CRUDFunctions";
 
 function Registration() {
@@ -158,7 +158,7 @@ function Registration() {
               Agree & Join
             </button>
             <button className='google-btn mt-3 ' onClick={signUpHandler}>
-              <img className='google-icon mr-2 mb-1' src='https://img.icons8.com/fluent/48/000000/google-logo.png' />
+              <img className='google-icon mr-2 mb-1' src='https://img.icons8.com/fluent/48/000000/google-logo.png' alt='Google' />
               Join with Google
             </button>
             <div className='text-center mt-3'>

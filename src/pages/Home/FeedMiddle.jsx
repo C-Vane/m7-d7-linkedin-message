@@ -157,7 +157,7 @@ class FeedMiddle extends React.Component {
     this.setState(currentstate);
   };
   render() {
-    const { photoModal, videoModal, articleModal, inputImage, startPostModal, eventsModal, loadingPosts, posts, editModal, currentPost, next, position } = this.state;
+    const { photoModal, videoModal, articleModal, inputImage, startPostModal, eventsModal, loadingPosts, posts, editModal, currentPost, next } = this.state;
     const { name, userID, profilePicture } = this.props;
     return (
       <div id='feedMiddle'>
@@ -202,7 +202,7 @@ class FeedMiddle extends React.Component {
           hasMore={next}
           loadMore={() => this.getPosts(next)}
           loader={
-            <Card className='d-flex justify-content-center mt-2 align-content-center'>
+            <Card key={Math.random(20)} className='d-flex justify-content-center mt-2 align-content-center'>
               <PostLoader className='w-100 h-100 p-4' />
             </Card>
           }

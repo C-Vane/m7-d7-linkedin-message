@@ -1,19 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { getFunction } from "../../components/CRUDFunctions";
-import CurrentUser from "../../components/CurrentUser";
-import OnlineUser from "../../components/OnlineUser";
+import React from "react";
 import OnlineUserHandler from "../../components/OnlineUsersHandler";
 
 const UsersList = ({ onlineUsers, currentReciver, userName, setCurrentReciver, notifications, setNotifications }) => {
-  const [recivingUser, setRecivingUser] = useState({});
-  useEffect(() => {
-    getUser();
-  }, []);
-  const getUser = async () => {
-    const user = await getFunction("profile/" + currentReciver);
-    if (user) setRecivingUser(user);
-    else console.log(user);
-  };
   return (
     <div>
       <div className='brdr-bottom m-0 pb-3 '>

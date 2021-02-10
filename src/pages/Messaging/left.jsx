@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import io from "socket.io-client";
 import UsersList from "./UsersList";
 import Messages from "./Message";
@@ -11,11 +11,11 @@ const url = "https://striveschool-api.herokuapp.com/api/messages/";
 let socket = io("https://striveschool-api.herokuapp.com/", connOpt);
 const MessagesBlock = (props) => {
   const { userName } = props;
-  const [user, setUser] = useState("");
   const [currentReciver, setCurrentReciver] = useState("");
   const [onlineUsers, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
   const [messageNotification, setMessageNotification] = useState([]);
+
   const unique = (value, index, self) => {
     return self.indexOf(value) === index;
   };
@@ -27,27 +27,29 @@ const MessagesBlock = (props) => {
     });
     socket.on("list", (list) => setUsers(list.filter(unique)));
     socket.on("chatmessage", (msg) => {
-      setMessages((messages) => messages.concat(msg).filter(unique));
+      setMessages((messages) => messages.concat(msg));
       setMessageNotification((messageNotification) => messageNotification.concat(msg.from));
+      console.log(messageNotification.length, messages.length);
     });
-    onlineUsers.length > 0 && setCurrentReciver(onlineUsers.find((user) => user !== userName));
+    setCurrentReciver(onlineUsers.find((user) => user !== userName));
   }, []);
 
   const getMessages = async () => {
     const msgs = await fetch(url + userName);
     const messages = await msgs.json();
-    console.log(messages);
     if (messages) setMessages(messages);
     else console.log(messages);
   };
   const sendMessage = (msg) => {
     socket.emit("chatmessage", {
+      from: userName,
       to: currentReciver,
       text: msg,
     });
-    setMessages((messages) => messages.concat({ from: userName, to: currentReciver, text: msg, createdAt: new Date() }));
-    console.log(messages);
+
+    setMessages([...messages, { from: userName, to: currentReciver, text: msg, createdAt: new Date() }]);
   };
+
   return (
     <div className='feed-right-container mb-3 p-0'>
       <Row>
@@ -62,7 +64,7 @@ const MessagesBlock = (props) => {
           />
         </Col>
         <Col sm={7} className='py-3 px-0 pr-3'>
-          <Messages {...props} currentReciver={currentReciver} messages={messages} sendMessage={sendMessage} />
+          <Messages {...props} currentReciver={currentReciver} messages={messages} sendMessage={sendMessage} notifications={messageNotification} setNotifications={setMessageNotification} />
         </Col>
       </Row>
     </div>

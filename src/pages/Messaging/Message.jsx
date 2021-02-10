@@ -5,7 +5,7 @@ import { getFunction } from "../../components/CRUDFunctions";
 import CurrentUser from "../../components/CurrentUser";
 import OnlineUser from "../../components/OnlineUser";
 
-const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, currentReciver, messages }) => {
+const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, currentReciver, messages, setNotifications, notifications }) => {
   const [currentUser, setcurrentUser] = useState("");
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
@@ -15,22 +15,30 @@ const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, curren
     setcurrentUser(currentReciver);
     setMessageList(messages);
     getUser();
+    scrollToBottom();
   }, []);
 
   useEffect(() => {
     setcurrentUser(currentReciver);
     setMessageList(messages);
     getUser();
+    scrollToBottom();
   }, [currentReciver, messages]);
+
+  const scrollToBottom = () => {
+    const messagesDiv = document.getElementsByClassName("messages")[0];
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  };
 
   const sendMessageHandler = (e) => {
     e.preventDefault();
     sendMessage(message);
+    setNotifications([...notifications.filter((notification) => notification !== currentReciver)]);
     setMessage("");
+    scrollToBottom();
   };
   const getUser = async () => {
     const user = await getFunction("profile/" + currentReciver);
-    console.log(user);
     if (user) setRecivingUser(user);
   };
   return (
@@ -97,7 +105,7 @@ const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, curren
         )}
       </div>
       <div className='write-message'>
-        <Form>
+        <Form onSubmit={sendMessageHandler}>
           <Form.Group className='brdr-bottom'>
             <Form.Control as='textarea' value={message} onChange={(e) => setMessage(e.target.value)} placeholder='Write a message...' />
           </Form.Group>
@@ -120,7 +128,7 @@ const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, curren
             </Col>
             <Col sm='6'>
               <div className='d-flex float-right mt-2'>
-                <Button className='rounded-pill px-4 py-0 m-0' onClick={sendMessageHandler} disabled={message.length < 1}>
+                <Button className='rounded-pill px-4 py-0 m-0' type='submit' disabled={message.length < 1}>
                   Send
                 </Button>
                 <Dropdown>

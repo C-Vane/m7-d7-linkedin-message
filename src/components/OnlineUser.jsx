@@ -12,7 +12,7 @@ const OnlineUser = ({ user, currentReciver, setCurrentReciver, notification }) =
           </p>
         </div>
         <div className='notification-badge'>
-          {notification >= 0 && (
+          {notification > 0 && (
             <Badge variant='primary' className='p-1' pill>
               <small>{notification}</small>
             </Badge>

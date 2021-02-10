@@ -16,7 +16,7 @@ function PostItem({ data }) {
                 <p className='mb-0'>{data.user.title}</p>
               </div>
               <p className='text-justify h5 m-3'>{data.text}</p>
-              {data.image && <img src={data.image} className='image-fluid mt-2' height='60px' />}
+              {data.image && <img src={data.image} className='image-fluid mt-2' height='60px' alt={"Image posted by " + data.user.username} />}
             </div>
           </div>
         </Link>

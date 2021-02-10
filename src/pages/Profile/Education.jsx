@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, ListGroup } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 export default withRouter(
   class Education extends Component {

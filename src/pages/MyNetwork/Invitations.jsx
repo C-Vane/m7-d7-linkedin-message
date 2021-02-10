@@ -35,7 +35,7 @@ export default class Invitations extends Component {
   };
 
   render() {
-    const { myInfo, myInfoSpliced } = this.state;
+    const { myInfoSpliced } = this.state;
     return (
       <div className='p-0 border mt-5' id='invitations'>
         {/* {Array.from({ length: 1 }, (_, i) => i + 1).map((e, index) => <InvitationsLoader key={index}/>)} */}

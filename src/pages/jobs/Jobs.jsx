@@ -133,7 +133,7 @@ export default class Jobs extends Component {
                       {this.state.showApplicant && (
                         <div className='show-applicant-container swing-in-top-fwd'>
                           <div className='d-flex align-items-center'>
-                            <img src={Picture} className='applicant-picture mr-2'></img>
+                            <img src={Picture} className='applicant-picture mr-2' alt='Applicant' />
                             <p className='font-weight-bold mb-0'>Stefano Casasola has applied for this job.</p>
                           </div>
                         </div>
