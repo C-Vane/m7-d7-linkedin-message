@@ -57,18 +57,23 @@ class NavBar extends React.Component {
   fetchSearchResultsHandler = async () => {
     let user = await getFunction("profile?search=" + this.state.searchInput);
     let post = await getFunction("post?search=" + this.state.searchInput);
-    console.log(user, post);
     user && post && this.setState({ searchUsers: user, searchPosts: post, showSearchResults: true });
   };
 
   searchInputTextHandler = (event) => {
+    if (event.target.value === "Escape") {
+    }
     this.setState({ searchInput: event.target.value });
   };
 
   render() {
     const { pathname } = this.props.location;
     return (
-      <div id='navbar' onPointerLeave={() => this.setState({ searchInput: "", showSearchResults: false, searchUsers: [], searchPosts: [] })}>
+      <div
+        id='navbar'
+        onPointerLeave={() => this.setState({ searchInput: "", showSearchResults: false, searchUsers: [], searchPosts: [] })}
+        onKeyDown={(e) => e.key === "Escape" && this.setState({ searchInput: "", showSearchResults: false, searchUsers: [], searchPosts: [] })}
+      >
         <Navbar collapseOnSelect expand='md' bg='light' variant='light'>
           <Container>
             <Link to='/feed'>
