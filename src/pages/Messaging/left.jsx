@@ -38,11 +38,16 @@ const MessagesBlock = (props) => {
     });
     socket.on("chatmessage", (msg) => {
       setMessages((messages) => messages.concat(msg));
-      console.log([...messageNotification], "new");
-      setMessageNotification(messageNotification.concat(msg.from));
+      setMessageNotification([...JSON.parse(localStorage.getItem("message_notification"))].concat(msg.from));
       console.log(messageNotification);
     });
     getMessages();
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (socket) socket.disconnect();
+    };
   }, []);
 
   useEffect(() => {
