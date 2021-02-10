@@ -23,6 +23,7 @@ function App() {
   const [currentUserID, setCurrentUserId] = React.useState("");
   const [currentUsername, setCurrentUsername] = React.useState("");
   const [isContactInfoOpen, setIsContactInfoOpen] = React.useState(false);
+  const [messageNotification, setMessageNotification] = React.useState(false);
 
   const contactInfoHandler = () => {
     setIsContactInfoOpen(!isContactInfoOpen);
@@ -49,7 +50,7 @@ function App() {
         <Login />
       </Route>
       <Route path='/'>
-        <NavBar jobTitle={currentJobTitle} name={currentName} userName={currentUsername} userID={currentUserID} profilePicture={currentProfilePicture} />
+        <NavBar jobTitle={currentJobTitle} name={currentName} userName={currentUsername} userID={currentUserID} messageNotification={messageNotification} profilePicture={currentProfilePicture} />
       </Route>
       <Route path='/feed' exact>
         <MainFeedContent jobTitle={currentJobTitle} name={currentName} userID={currentUserID} userName={currentUsername} profilePicture={currentProfilePicture} />
@@ -61,7 +62,7 @@ function App() {
         <MyNetwork />
       </Route>
       <Route path='/messaging' exact>
-        <Messaging jobTitle={currentJobTitle} name={currentName} userID={currentUserID} userName={currentUsername} profilePicture={currentProfilePicture} />
+        <Messaging jobTitle={currentJobTitle} name={currentName} setNotification={setMessageNotification} userID={currentUserID} userName={currentUsername} profilePicture={currentProfilePicture} />
       </Route>
       {isContactInfoOpen && <ContactInfoPopup contactInfoHandler={contactInfoHandler} />}
       <Route path='/signup' exact>

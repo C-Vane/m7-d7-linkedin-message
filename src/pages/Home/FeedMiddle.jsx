@@ -40,7 +40,6 @@ class FeedMiddle extends React.Component {
   getPosts = async (query) => {
     const endp = query ? "post?" + query : "post";
     const response = await getFunction(endp);
-    console.log(response);
     if (response) {
       setTimeout(() => {
         this.setState({

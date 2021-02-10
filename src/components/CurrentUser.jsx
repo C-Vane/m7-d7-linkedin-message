@@ -2,10 +2,17 @@ import React from "react";
 import { Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const CurrentUser = ({ user, userName, name, profilePicture, jobTitle, currentReciver, setCurrentReciver, notification }) => {
+const CurrentUser = ({ user, userName, name, profilePicture, jobTitle, currentReciver, setCurrentReciver, notification, online }) => {
   return (
     <div className={user === currentReciver && setCurrentReciver ? "current-onlineUsers wrap d-flex p-3" : "onlineUsers wrap d-flex p-3"} onClick={() => setCurrentReciver && setCurrentReciver(user)}>
-      <img className='image mr-3 rounded-circle' src={profilePicture} alt='user-img' height='60px' />
+      <div className='relative'>
+        <img className='image mr-3 rounded-circle' src={profilePicture} alt='user-img' height='60px'></img>
+        {currentReciver && (
+          <Badge variant={online ? "success" : "secondary"} className='p-2 mr-2 ' pill>
+            {" "}
+          </Badge>
+        )}
+      </div>
       <div className='d-flex  justify-content-between'>
         <div className='d-flex flex-column'>
           <Link to={"/profile/" + userName}>

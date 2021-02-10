@@ -10,7 +10,7 @@ export const getFunction = async (endp) => {
     if (response.ok) {
       return await response.json();
     } else {
-      console.log(response);
+      response.status !== 404 && console.log(response);
     }
   } catch (error) {
     console.log(error);
@@ -115,4 +115,13 @@ export const deleteFunction = async (endp) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const getUniqueUsersAndMessages = (messages, onlineUsers) => {
+  const users = messages.map((message) => message.from).filter(uniqueObject);
+  const offlineUsers = users.filter((user) => !onlineUsers.includes(user));
+  return offlineUsers;
+};
+export const uniqueObject = (value, index, self) => {
+  return self.indexOf(value) === index;
 };

@@ -6,7 +6,7 @@ import LatestExperience from "./LatestExperience";
 import About from "./About";
 import MyLoader from "../../components/loaders/ContentLoader";
 import ImageUploader from "react-images-upload";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { deleteFunction, getDocument, getFunction, postFunctionImage, putFunction } from "../../components/CRUDFunctions";
 import EditProfile from "../../components/EditModalProfile";
 
@@ -192,12 +192,18 @@ function MainProfileBlock(props) {
                 </div>
                 <div className='profile-right w-50 text-right'>
                   <div className='profile-button-container d-flex align-items-center justify-content-end mb-4'>
-                    <Button className='mr-2 px-4 rounded-pill font-weight-bold' variant='primary'>
-                      Connect
-                    </Button>
-                    <Button className='mr-2 px-4 rounded-pill font-weight-bold' variant='outline-primary'>
-                      Message
-                    </Button>
+                    {props.loggedInUser !== currentUserName && (
+                      <>
+                        <Button className='mr-2 px-4 rounded-pill font-weight-bold' variant='primary'>
+                          Connect
+                        </Button>
+                        <Link to='/messaging'>
+                          <Button className='mr-2 px-4 rounded-pill font-weight-bold' variant='outline-primary'>
+                            Message
+                          </Button>
+                        </Link>
+                      </>
+                    )}
                     <Button className='px-4 rounded-pill font-weight-bold' variant='outline-secondary' onClick={moreMenuHandler}>
                       More...
                     </Button>

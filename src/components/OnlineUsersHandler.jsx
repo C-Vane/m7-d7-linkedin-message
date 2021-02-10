@@ -3,24 +3,23 @@ import { getFunction } from "./CRUDFunctions";
 import CurrentUser from "./CurrentUser";
 import OnlineUser from "./OnlineUser";
 
-const OnlineUserHandler = ({ user, currentReciver, setCurrentReciver, notifications, setNotifications }) => {
+const OnlineUserHandler = ({ user, currentReciver, setCurrentReciver, notifications, setNotifications, online }) => {
   const [recivingUser, setRecivingUser] = useState({});
   const [notification, setNotification] = useState(0);
   useEffect(() => {
-    setNotification(notifications.filter((n) => n === user).length);
+    notifications.length > 0 && setNotification(notifications.filter((n) => n === user).length);
   }, [notifications]);
 
   useEffect(() => {
     getUser();
-    setNotification(notifications.filter((n) => n === user).length);
+    notifications.length > 0 && setNotification(notifications.filter((n) => n === user).length);
   }, []);
   const getUser = async () => {
     const data = await getFunction("profile/" + user);
     if (data) setRecivingUser(data);
-    else console.log(user);
   };
   const setCurrent = (user) => {
-    setNotifications([...notifications.filter((n) => n !== user)]);
+    notifications && setNotifications([...notifications.filter((n) => n !== user)]);
     setCurrentReciver(user);
   };
   return (
@@ -35,9 +34,10 @@ const OnlineUserHandler = ({ user, currentReciver, setCurrentReciver, notificati
           userName={recivingUser.username}
           profilePicture={recivingUser.image}
           notification={notification}
+          online={online}
         />
       ) : (
-        <OnlineUser user={user} setCurrentReciver={setCurrent} currentReciver={currentReciver} notification={notification} />
+        <OnlineUser user={user} setCurrentReciver={setCurrent} currentReciver={currentReciver} notification={notification} online={online} />
       )}
     </div>
   );

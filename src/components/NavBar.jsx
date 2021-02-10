@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Image, NavDropdown, Row, Button, Container, Col, Modal, Card, ListGroup } from "react-bootstrap";
+import { Navbar, Nav, Image, NavDropdown, Row, Button, Container, Col, Modal, Card, ListGroup, Badge } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -68,6 +68,8 @@ class NavBar extends React.Component {
 
   render() {
     const { pathname } = this.props.location;
+    const { messageNotification } = this.props;
+    console.log(messageNotification);
     return (
       <div
         id='navbar'
@@ -132,13 +134,27 @@ class NavBar extends React.Component {
                 </Link>
                 <Link to='/messaging'>
                   <div className={pathname === "/messaging" ? "nav-link active" : "nav-link"}>
-                    <FontAwesomeIcon icon={faCommentDots} size='lg' />
+                    <div className='relative top'>
+                      <FontAwesomeIcon icon={faCommentDots} size='lg' />
+                      {messageNotification && (
+                        <Badge variant='danger' className='p-1 mr-2 ' pill>
+                          {" "}
+                        </Badge>
+                      )}
+                    </div>
                     <small>Messaging</small>
                   </div>
                 </Link>
                 <Link to='/notifications'>
                   <div className={pathname === "/notifications" ? "nav-link active" : "nav-link"}>
-                    <FontAwesomeIcon icon={faBell} size='lg' />
+                    <div className='relative top'>
+                      <FontAwesomeIcon icon={faBell} size='lg' />
+                      {messageNotification && (
+                        <Badge variant='danger' className='p-1 mr-2 ' pill>
+                          {" "}
+                        </Badge>
+                      )}
+                    </div>
                     <small>Notifications</small>
                   </div>
                 </Link>

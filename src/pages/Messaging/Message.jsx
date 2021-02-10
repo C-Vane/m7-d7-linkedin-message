@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Dropdown, Form, Row } from "react-bootstrap";
+import { Badge, Button, Col, Dropdown, Form, Row } from "react-bootstrap";
 import Moment from "react-moment";
 import { getFunction } from "../../components/CRUDFunctions";
 import CurrentUser from "../../components/CurrentUser";
 import OnlineUser from "../../components/OnlineUser";
 
-const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, currentReciver, messages, setNotifications, notifications }) => {
+const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, currentReciver, messages, setNotifications, notifications, online }) => {
   const [currentUser, setcurrentUser] = useState("");
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
   const [recivingUser, setRecivingUser] = useState({});
-
+  const [sendOnEnter, setSendOnEnter] = useState(false);
   useEffect(() => {
     setcurrentUser(currentReciver);
     setMessageList(messages);
@@ -23,6 +23,7 @@ const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, curren
     setMessageList(messages);
     getUser();
     scrollToBottom();
+    setRecivingUser({});
   }, [currentReciver, messages]);
 
   const scrollToBottom = () => {
@@ -33,6 +34,7 @@ const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, curren
   const sendMessageHandler = (e) => {
     e.preventDefault();
     sendMessage(message);
+    console.log(notifications);
     setNotifications([...notifications.filter((notification) => notification !== currentReciver)]);
     setMessage("");
     scrollToBottom();
@@ -44,17 +46,33 @@ const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, curren
   return (
     <div className='message-box'>
       <div className='brdr-bottom m-0 d-flex pb-2 justify-content-between'>
-        <div>
+        <div className='pl-3'>
           <b>
             {recivingUser._id ? (
               <>
                 <p>{recivingUser.name + " " + recivingUser.surname}</p>
-                <small>Active Now</small>
               </>
             ) : (
-              <p>{currentUser}</p>
+              <p>{currentReciver}</p>
             )}
           </b>
+          {online ? (
+            <small>
+              {" "}
+              <Badge variant='success' className='p-1 mr-2' pill>
+                {" "}
+              </Badge>
+              Active Now
+            </small>
+          ) : (
+            <small className='text-muted'>
+              {" "}
+              <Badge variant='secondary' className='p-1 mr-2' pill>
+                {" "}
+              </Badge>
+              Offline Now
+            </small>
+          )}
         </div>
         <div>
           <Dropdown>
@@ -81,7 +99,7 @@ const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, curren
       <div className='brdr-bottom messages'>
         {messageList.map(
           (message) =>
-            (message.from === currentUser || message.to === currentUser) && (
+            (message.from === currentReciver || message.to === currentReciver) && (
               <>
                 {" "}
                 <div className='d-flex'>
@@ -104,7 +122,7 @@ const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, curren
             )
         )}
       </div>
-      <div className='write-message'>
+      <div className='write-message' onKeyDown={(e) => e.key === "Enter" && sendOnEnter && sendMessageHandler(e)}>
         <Form onSubmit={sendMessageHandler}>
           <Form.Group className='brdr-bottom'>
             <Form.Control as='textarea' value={message} onChange={(e) => setMessage(e.target.value)} placeholder='Write a message...' />
@@ -128,7 +146,7 @@ const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, curren
             </Col>
             <Col sm='6'>
               <div className='d-flex float-right mt-2'>
-                <Button className='rounded-pill px-4 py-0 m-0' type='submit' disabled={message.length < 1}>
+                <Button className={sendOnEnter ? "d-none" : "rounded-pill px-4 py-0 m-0"} type='submit' disabled={message.length < 1}>
                   Send
                 </Button>
                 <Dropdown>
@@ -136,17 +154,19 @@ const Message = ({ jobTitle, name, userName, profilePicture, sendMessage, curren
                     <i className='fas fa-ellipsis-h'></i>
                   </Dropdown.Toggle>
 
-                  <Dropdown.Menu>
-                    <Dropdown.Item className='p-2' href='#/action-1'>
-                      Create group chat
+                  <Dropdown.Menu className='p-2'>
+                    <Dropdown.Item onClick={() => setSendOnEnter(true)}>
+                      <label>
+                        <input type='radio' className='m-1' value={true} name='OnEnter' checked={sendOnEnter} />
+                        Send on enter
+                      </label>
                     </Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item className='p-2'>Archive</Dropdown.Item>
-                    <Dropdown.Item className='p-2'>Delete</Dropdown.Item>
-                    <Dropdown.Item className='p-2'>Mark as unread</Dropdown.Item>
-                    <Dropdown.Item className='p-2'>Mute</Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item className='p-2'>Report</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setSendOnEnter(false)}>
+                      <label>
+                        <input type='radio' className='m-1' value={false} name='OnEnter' checked={!sendOnEnter} />
+                        Send on Send
+                      </label>
+                    </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </div>

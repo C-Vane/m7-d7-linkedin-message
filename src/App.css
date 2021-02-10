@@ -1096,3 +1096,18 @@ Body {
   bottom: 5px;
   right: 5px;
 }
+.relative {
+  position: relative;
+}
+.relative .badge {
+  position: absolute;
+  bottom: 0px;
+  right: 10px;
+  border: 3px solid #ffff;
+}
+.relative.top .badge {
+  position: absolute;
+  bottom: 10px;
+  right: -20px;
+  border: 2px solid #ffff;
+}
