@@ -5,13 +5,20 @@ import UsersList from "./UsersList";
 import Messages from "./Message";
 import { getUniqueUsersAndMessages, uniqueObject } from "../../components/CRUDFunctions";
 import PostLoader from "../../components/loaders/PostLoader";
+import { connect } from "react-redux";
 
+const mapStateToProps = (state) => state;
+
+const mapDispatchToProps = (dispatch) => ({
+  setError: (error) => dispatch({ type: "SET_ERROR", payload: error }),
+});
 const connOpt = {
   transports: ["websocket"],
 };
 const url = "https://striveschool-api.herokuapp.com/api/messages/";
 let socket = io("https://striveschool-api.herokuapp.com/", connOpt);
 const MessagesBlock = (props) => {
+  // const { userName, setNotification, users, socket, messages, messageNotification, currentReciver } = props;
   const { userName, setNotification } = props;
   const [currentReciver, setCurrentReciver] = useState("");
   const [onlineUsers, setOnlineUsers] = useState([]);
@@ -116,4 +123,4 @@ const MessagesBlock = (props) => {
   );
 };
 
-export default MessagesBlock;
+export default connect(mapStateToProps, mapDispatchToProps)(MessagesBlock);
