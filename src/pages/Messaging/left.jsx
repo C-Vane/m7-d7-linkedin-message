@@ -42,9 +42,6 @@ const MessagesBlock = (props) => {
       console.log(messageNotification);
     });
     getMessages();
-  }, []);
-
-  useEffect(() => {
     return () => {
       if (socket) socket.disconnect();
     };
