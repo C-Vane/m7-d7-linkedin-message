@@ -2,15 +2,89 @@
 <hr/>
 Welcome to my linkedIn clone App
 
-## Available Scripts
+### LinkedIn Web Clone
 
-In the project directory, you can run:
+Project server implementation details can be found [here](https://github.com/C-Vane/m6-bulid-week-be) in backend part of this project.
 
-### `npm start`
+You can enjoy with [LIVE DEMO](https://clonelinkedin.vercel.app/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Features
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<details>
+<summary><b> Create an account and login </b></summary>
+  </br>
+  <p> Most of the component rendered conditionally. You have to login to see pages. </p>
+  </br>
+   
+  <img alt="app" src="" />
+
+</details>
+
+<details>
+<summary><b> Create a new post </b></summary>
+  </br>
+  <p> You can create a new post with and image and description </p>
+  </br>
+  
+  <img alt="app" src="" />
+
+</details>
+
+<details>
+<summary><b> React and make comments on posts </b></summary>
+  </br>
+  <p> Most of the component rendered conditionally. </p>
+  </br>
+   
+  <img alt="app" src="" />
+
+</details>
+
+
+<details>
+<summary><b> Search for available users </b></summary>
+  </br>
+  <p> Since this is a minified clone we don't have a lot of users there.</p>
+  </br>
+   
+  <img alt="app" src="" />
+</a>
+</details>
+
+<details>
+<summary><b> Go to your profile and edit your information </b></summary>
+  </br>
+  <p> Ofc you can edit your profile. All updates responds immediately.  </p>
+  </br>
+   
+  <img alt="app" src="" />
+
+</details>
+
+<details>
+<summary><b> Add experiences and edit them </b></summary>
+  </br> You will see the updates automaticly  </br>
+   
+  <img alt="app" src="" />
+
+</details>
+<details>
+<summary><b> Chat with other users </b></summary>
+  </br> You can see old chats or chat with other users that are online </br>
+   
+  <img alt="app" src="" />
+
+</details>
+
+</details>
+<details>
+<summary><b> Chat with other users </b></summary>
+  </br> You can see old chats or chat with other users that are online </br>
+   
+ To run the code just clone the repo and write the following command
+  ## npm start
+
+</details>
+
+
 
