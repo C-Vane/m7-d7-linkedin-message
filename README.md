@@ -79,7 +79,7 @@ You can enjoy with [LIVE DEMO](https://clonelinkedin.vercel.app/)
 </details>
 <details>
 <summary><b> Chat with other users </b></summary>
-  </br> You can see old chats or chat with other users that are online </br>
+  </br> How to run the code </br>
    
  To run the code just clone the repo and write the following command
   ## npm start
