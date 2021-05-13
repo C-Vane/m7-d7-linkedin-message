@@ -78,7 +78,7 @@ You can enjoy with [LIVE DEMO](https://clonelinkedin.vercel.app/)
 
 </details>
 <details>
-<summary><b> Chat with other users </b></summary>
+<summary><b> How to run the code </b></summary>
   </br> How to run the code </br>
    
  To run the code just clone the repo and write the following command
